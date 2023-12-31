@@ -13,7 +13,7 @@ app = Flask(__name__)
 summarizer = pipeline("summarization", model="Falconsai/text_summarization")
 
 # Replace with your AssemblyAI API key
-aai.settings.api_key = "d1fadd54d7a646d5a1fb0636577b10f6"
+aai.settings.api_key = "YOUR_ASSEMBLYAI_API_KEY"
 
 # Define the index route for the main page
 @app.route('/')
