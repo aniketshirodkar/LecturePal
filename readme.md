@@ -16,13 +16,7 @@ Make sure you have the following installed:
     git clone https://github.com/your-username/your-repo.git
     ```
 
-2. Navigate to the project directory:
-
-    ```bash
-    cd your-repo
-    ```
-
-3. Install the required packages:
+2. Install the required packages:
 
 ## Usage
 
