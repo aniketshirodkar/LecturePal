@@ -1,0 +1,86 @@
+<!-- transcribe_result.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title -->
+    <title>Video Transcription</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom styles -->
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        h1 {
+            color: #007BFF;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        #transcriptionResult {
+            margin-top: 20px;
+        }
+
+        #summarizeBtn {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <h1 class="mt-3">Video Transcription</h1>
+        <!-- File upload form -->
+        <form action="/transcribe" method="post" enctype="multipart/form-data" class="mt-3">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="file" id="file" accept="video/*">
+              <label class="custom-file-label" for="file">Choose a video file</label>
+          </div>
+          <button type="submit" class="btn btn-primary mt-3">Transcribe</button>
+        </form>
+
+        <!-- Transcription result display -->
+        <div id="transcriptionResult">
+            <h2>Transcription Result</h2>
+            <p>{{ transcription }}</p>
+            <button id="summarizeBtn" class="btn btn-info">Summarize</button>
+            <p id="summary" class="mt-3"></p>
+        </div>
+    </div>
+
+    <!-- JavaScript libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JavaScript for summarization -->
+    <script>
+        $(document).ready(function(){
+            $('#summarizeBtn').click(function(){
+                // Get transcription text
+                var text = "{{ transcription }}";
+                // Send AJAX request for summarization
+                $.ajax({
+                    type: 'POST',
+                    url: '/summarize',
+                    contentType: 'application/json;charset=UTF-8',
+                    data: JSON.stringify({ text: text }),
+                    success: function(response) {
+                        // Display summary
+                        $('#summary').text(response.summary);
+                    },
+                    error: function(error) {
+                        console.error("Error summarizing:", error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
